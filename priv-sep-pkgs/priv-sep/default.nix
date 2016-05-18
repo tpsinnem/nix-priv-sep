@@ -108,8 +108,6 @@ let util = (import ./util.nix { inherit lib pkgs; }); in
               touch /home/${psu.name}/.privSepUser
               touch /home/${psu.name}/.xsession-errors
               chmod g+rw /home/${psu.name}/.xsession-errors
-              cp -R /etc/skel/.fluxbox /home/${psu.name}
-              chown -R ${psu.name}-admin.${psu.name} /home/${psu.name}/.fluxbox
               '' )
             ""
             config.users.privSepUsers;
