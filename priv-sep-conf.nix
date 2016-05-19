@@ -14,9 +14,18 @@ let psPkgs = import ./priv-sep-pkgs; in
   users.privSepUsers = [
     { name = "alice";
       domains = [
+
+          # The name of the domain account, which gets a home
+          # in /priv-sep/alice/notes/work
         { name = "notes";
           commands = [
+
+              # A command to be run. The executable must be given as an
+              # absolute path.
             { command = "${pkgs.fluxbox}/bin/fluxbox";
+                              
+              # The name of the script for this command. Gets written
+              # to /home/alice/bin/notes.
               alias = "notes"; } ];
         }
         { name = "web";

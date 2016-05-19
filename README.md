@@ -2,13 +2,32 @@
 Some Nixos tools for possibly slightly less nonexistent privilege separation 
 between various tasks than in my previous status quo.
 
-These enable a semi-convenient way to set up for a given user to be able to 
-'sudo -u' (without a password) to another account (or 'domain') dedicated to 
-a particular task. The command you set up to be run this way will connect to a 
-Xephyr xserver dedicated to that domain in order to prevent programs running 
+These enable a semi-convenient way to set up a user with commands run under 
+'sudo -u' (without a password) on another account (or 'domain') dedicated to 
+a particular task. Commands you set up to be run this way are written into 
+scripts in ~/bin/ and, if they are X clients, will connect to a Xephyr xserver 
+dedicated to their respective domain, in order to prevent programs running 
 in different domains from sniffing each others' keyboard traffic etc.
+
+A user set up this way is *not given write access to their home directory*,
+in order to keep malicious programs from tampering with configuration. For a 
+user 'x', a separate 'x-admin' account is automatically created for the 
+purpose of configuring any applications to be run with the privileges of the
+main user. Most actual work is intended to be done in the various separate 
+domains, whose accounts *do* have write access to their homes.
 
 These domain accounts each have their own home directory in 
 '/priv-sep/[user]/[domain]/work', and directories 
 '/priv-sep/[user]/[domain]/in' and '/priv-sep/[user]/[domain]/out' for moving 
 files in and out.
+
+This is still at an early, experimental, stage, but I do use it on my own system.
+
+There are likely to be various changes to how exactly the configurations for 
+accounts and commands are written. Right now there's no setup for running 
+multiple commands from one script, but that should change soon.
+
+I give no guarantees at all that this design is actually useful for 
+protecting anyone from anything. In case someone does care to take a closer look,
+feedback is welcome, at timo.sinnemaki@helsinki.fi, twitter.com/tpsinnem, 
+or 'tpsinnem' on #nixos and elsewhere on freenode.
